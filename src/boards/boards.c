@@ -439,3 +439,7 @@ void neopixel_write (uint8_t *pixels)
   led_pwm_duty_cycle(LED_RGB_BLUE, pixels[0]);
 }
 #endif
+
+__attribute__ ((weak))
+void user_init() {}
+

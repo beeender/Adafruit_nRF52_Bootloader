@@ -69,6 +69,7 @@
 
 void board_init(void);
 void board_teardown(void);
+void user_init(void);
 
 //--------------------------------------------------------------------+
 // LED

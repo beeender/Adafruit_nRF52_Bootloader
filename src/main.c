@@ -116,6 +116,9 @@ void usb_teardown(void);
 
 #define BOOTLOADER_VERSION_REGISTER     NRF_TIMER2->CC[0]
 #define DFU_SERIAL_STARTUP_INTERVAL     1000
+#ifndef DFU_WAIT_BEFORE_APP_INTERVAL
+#define DFU_WAIT_BEFORE_APP_INTERVAL    0
+#endif
 
 // Allow for using reset button essentially to swap between application and bootloader.
 // This is controlled by a flag in the app and is the behavior of CPX and all Arcade boards when using MakeCode.
@@ -183,6 +186,7 @@ int main(void)
 
   board_init();
   bootloader_init();
+  user_init();
 
   led_state(STATE_BOOTLOADER_STARTED);
 
@@ -250,7 +254,15 @@ int main(void)
     }
 
     // Initiate an update of the firmware.
-    APP_ERROR_CHECK( bootloader_dfu_start(_ota_dfu, 0) );
+    // If app is valid, wait for a certain time then reboot to avoid unexpected dfu boot.
+    if (valid_app)
+    {
+        APP_ERROR_CHECK( bootloader_dfu_start(_ota_dfu, DFU_WAIT_BEFORE_APP_INTERVAL) );
+    }
+    else
+    {
+        APP_ERROR_CHECK( bootloader_dfu_start(_ota_dfu, 0) );
+    }
 
     if ( _ota_dfu )
     {

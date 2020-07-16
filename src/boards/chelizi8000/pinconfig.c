@@ -1,5 +1,6 @@
 #include "boards.h"
 #include "uf2/configkeys.h"
+#include "nrf_gpio.h"
 
 __attribute__((used, section(".bootloaderConfig")))
 const uint32_t bootloaderConfig[] =
@@ -17,3 +18,9 @@ const uint32_t bootloaderConfig[] =
   0, 0, 0, 0, 0, 0, 0, 0
   /* CF2 END */
 };
+
+void user_init(void)
+{
+  nrf_gpio_cfg_output(27);
+  nrf_gpio_pin_write(27, 0);
+}

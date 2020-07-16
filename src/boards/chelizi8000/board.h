@@ -45,8 +45,8 @@
  *------------------------------------------------------------------*/
 // TODO(gpshead): simplify, have code support 0.  double reset only.
 #define BUTTONS_NUMBER        2  // none connected at all
-#define BUTTON_1              _PINNUM(0, 18)  // unusable: RESET
-#define BUTTON_2              _PINNUM(0, 31)  // no connection
+#define BUTTON_FRESET         _PINNUM(0, 18)
+#define BUTTON_DFU            _PINNUM(1, 5)
 #define BUTTON_PULL           NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
@@ -68,5 +68,7 @@
 #define UF2_VOLUME_LABEL   "CheLiZiUF2"
 #define UF2_BOARD_ID       "CheLiZi-8000-v1"
 #define UF2_INDEX_URL      "https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/"
+
+#define DFU_WAIT_BEFORE_APP_INTERVAL 30000
 
 #endif /* _MDK_NRF52840_DONGLE_H_ */
