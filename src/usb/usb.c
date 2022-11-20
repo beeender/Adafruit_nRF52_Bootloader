@@ -126,4 +126,6 @@ void tud_mount_cb(void)
 void tud_umount_cb(void)
 {
   led_state(STATE_USB_UNMOUNTED);
+  // Plug the usb to reboot
+  NVIC_SystemReset();
 }
